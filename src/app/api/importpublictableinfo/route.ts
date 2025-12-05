@@ -15,6 +15,7 @@ export async function POST(req: Request) {
     },
     body: JSON.stringify({      
       project_name: body.project_name,
+      project_code: body.project_code,
       left1: body.left1 || null,
       left2: body.left2 || null,
       left3: body.left3 || null,

@@ -1,6 +1,23 @@
-import React from "react";
 
+import React, { useEffect, useState } from "react";
 export default function TableOne() {
+    const [rows, setRows] = useState<any[]>([]);
+    const today = new Date();
+    const formatDate = today.toISOString().slice(0, 10);
+
+        useEffect(() => {
+            const loadData = async () => {
+                try {
+                    const res = await fetch("/api/gettable02");
+                    const data = await res.json();
+                    setRows(data.items || []);
+                } catch (e) {
+                    console.error("加载失败", e);
+                }
+            };
+    
+            loadData();
+        }, []);
     return (
     
         <>
@@ -9,10 +26,10 @@ export default function TableOne() {
                 {/* 表一（横向） */}
                 <div className="page-print landscape-page break-before-page">
                     <h2 className="text-lg font-semibold mb-2 text-center">工程决算总表（表一）</h2>
-                    <h4 className="text-[10px] font-semibold text-left mb-[-10px]">项目名称：</h4>
+                    <h4 className="text-[10px] font-semibold text-left mb-[-10px]">工程编号：{rows[0]?.project_code ?? ""}</h4>
                     <div className="flex justify-between items-center w-full mb-[-10px]">
                         <h4 className="text-[10px] font-semibold text-left">
-                            工程名称：XX工程
+                            工程名称：{rows[0]?.project_name ?? ""}
                         </h4>
 
                         <h4 className="text-[10px] font-semibold text-center">
@@ -110,7 +127,7 @@ export default function TableOne() {
                         <span>负责人：王五</span>
                         <span>编制：张三</span>
                         <span>审核：李四</span>
-                        <span>编制日期：2025-11-25</span>
+                        <span>编制日期：{formatDate}</span>
                     </div>
                 </div>
             </div>

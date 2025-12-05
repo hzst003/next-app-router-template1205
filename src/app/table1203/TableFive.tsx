@@ -1,6 +1,8 @@
 import React from "react";
 
 export default function TableFive() {
+        const today = new Date();
+    const formatDate = today.toISOString().slice(0, 10);
     return (
         <>
             <div className="p-6 space-y-10">
@@ -94,7 +96,7 @@ export default function TableFive() {
                         <span>负责人：王五</span>
                         <span>编制：张三</span>
                         <span>审核：李四</span>
-                        <span>编制日期：2025-11-25</span>
+                        <span>编制日期：{formatDate}</span>
                     </div>
                 </div>
             </div>

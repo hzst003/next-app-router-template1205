@@ -4,7 +4,10 @@
 import React, { useEffect, useState } from "react";
 
 export default function TableThree() {
+        const today = new Date();
+    const formatDate = today.toISOString().slice(0, 10);
     const [rows, setRows] = useState<any[]>([]);
+    const [table2rows, setTable2Rows] = useState<any[]>([]);
 
     // ⭐ 载入 Directus 表 3 数据
     useEffect(() => {
@@ -18,7 +21,18 @@ export default function TableThree() {
             }
         };
 
+                const loadTable2Data = async () => {
+            try {
+                const res = await fetch("/api/gettable02");
+                const data = await res.json();
+                setTable2Rows(data.items || []);
+            } catch (e) {
+                console.error("加载失败", e);
+            }
+        };
+
         loadData();
+        loadTable2Data();
     }, []);
 
     const totalTech = rows.reduce(
@@ -41,12 +55,12 @@ export default function TableThree() {
                     </h2>
 
                     <h4 className="text-[10px] font-semibold  text-left mb-[-10px]">
-                        项目名称：
+                        工程编号：{table2rows[0]?.project_code ?? ""}
                     </h4>
 
                     <div className="flex justify-between items-center w-full mb-[-10px]">
                         <h4 className="text-[10px] font-semibold text-left">
-                            工程名称：XX工程
+                            工程名称：{table2rows[0]?.project_name ?? ""}
                         </h4>
 
                         <h4 className="text-[10px] font-semibold text-center">
@@ -152,7 +166,7 @@ export default function TableThree() {
                         <span>负责人：王五</span>
                         <span>编制：张三</span>
                         <span>审核：李四</span>
-                        <span>编制日期：2025-11-25</span>
+                        <span>编制日期：{formatDate}</span>
                     </div>
 
                 </div>

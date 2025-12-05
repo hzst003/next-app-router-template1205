@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 
 export default function TableTwoA() {
+    const today = new Date();
+    const formatDate = today.toISOString().slice(0, 10);
     const [rows, setRows] = useState<any[]>([]);
 
     // ⭐ 载入 Directus 表 2 数据
@@ -28,10 +30,10 @@ export default function TableTwoA() {
 
                 <div className="page-print landscape-page break-before-page break-inside-avoid">
                     <h2 className="text-lg font-semibold mb-2 text-center">建筑安装工程费用决算表（表二）</h2>
-                    <h4 className="text-[10px] font-semibold mb-0 text-left mb-[-10px]">项目名称：</h4>
+                    <h4 className="text-[10px] font-semibold mb-0 text-left mb-[-10px]">工程编号：{rows[0]?.project_code ?? ""}</h4>
                     <div className="flex justify-between items-center w-full mb-0 mb-[-10px]">
                         <h4 className="text-[10px] font-semibold text-left">
-                            工程名称：XX工程
+                            工程名称：{rows[0]?.project_name ?? ""}
                         </h4>
 
                         <h4 className="text-[10px] font-semibold text-center">
@@ -410,7 +412,7 @@ export default function TableTwoA() {
                         <span>负责人：王五</span>
                         <span>编制：张三</span>
                         <span>审核：李四</span>
-                        <span>编制日期：2025-11-25</span>
+                        <span>编制日期：{formatDate}</span>
                     </div>
                 </div>
             </div>

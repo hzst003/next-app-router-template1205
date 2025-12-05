@@ -7,7 +7,7 @@ import React, { useState } from "react";
 export default function UploadTableThree() {
   const [file, setFile] = useState<File | null>(null);
   const [msg, setMsg] = useState("");
-  const [builder, setBuilder] = useState(""); // 建设单位
+  const [projectCode, setProjectCode] = useState(""); // 建设单位
   const [projectName, setProjectName] = useState(""); // 项目名称
 
   // 上传表三
@@ -53,7 +53,7 @@ export default function UploadTableThree() {
 
   // 计算并导入数据到 public_info
   const importData = async () => {
-    if (!builder || !projectName) {
+    if (!projectCode || !projectName) {
       setMsg("请填写所有字段");
       return;
     }
@@ -84,6 +84,7 @@ export default function UploadTableThree() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           project_name: projectName,
+          project_code: projectCode,
           left1: 0,
           left2: 0,
           left3: 0,
@@ -119,14 +120,14 @@ return (
       <div className="flex flex-col gap-3">
         <input
           type="text"
-          placeholder="建设单位"
-          value={builder}
-          onChange={(e) => setBuilder(e.target.value)}
+          placeholder="工程编号"
+          value={projectCode}
+          onChange={(e) => setProjectCode(e.target.value)}
           className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
         />
         <input
           type="text"
-          placeholder="项目名称"
+          placeholder="工程名称"
           value={projectName}
           onChange={(e) => setProjectName(e.target.value)}
           className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
